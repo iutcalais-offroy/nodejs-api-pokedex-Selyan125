@@ -5,7 +5,22 @@ import {prisma} from "../src/database";
 import {CardModel} from "../src/generated/prisma/models/Card";
 import {PokemonType} from "../src/generated/prisma/enums";
 
+function generateCards(cards: CardModel[], count: number) {
+    const copy = [...cards];
+    const result: CardModel[] = [];
+
+    for (let i = 0; i < count && copy.length > 0; i++) {
+        const index = Math.floor(Math.random() * copy.length);
+        result.push(copy[index]);
+        copy.splice(index, 1);
+    }
+
+    return result;
+}
+
+
 async function main() {
+
     console.log("🌱 Starting database seed...");
 
     await prisma.card.deleteMany();
@@ -55,6 +70,40 @@ async function main() {
             })
         )
     );
+
+    
+    // Création des decks
+    const redDeck = await prisma.deck.create({
+        data: {
+            name: "Starter Deck",
+            userId: redUser.id,
+        },
+    });
+
+        const blueDeck = await prisma.deck.create({
+        data: {
+            name: "Starter Deck",
+            userId: blueUser.id,
+        },
+    });
+
+
+
+    // Liaison entre decks et cartes
+    await prisma.deckCard.createMany({
+        data: generateCards(createdCards, 10).map(card => ({
+            deckId: redDeck.id,
+            cardId: card.id,
+        })),
+    });
+
+        await prisma.deckCard.createMany({
+        data: generateCards(createdCards, 10).map(card => ({
+            deckId: blueDeck.id,
+            cardId: card.id,
+        })),
+    });
+
 
     console.log(`✅ Created ${pokemonData.length} Pokemon cards`);
 
