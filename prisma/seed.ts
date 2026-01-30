@@ -71,7 +71,7 @@ async function main() {
         )
     );
 
-    
+    // Création des decks
     const redDeck = await prisma.deck.create({
         data: {
             name: "Starter Deck",
@@ -87,6 +87,7 @@ async function main() {
     });
 
 
+    // Liaison entre decks et cartes
     await prisma.deckCard.createMany({
         data: generateCards(createdCards, 10).map(card => ({
             deckId: redDeck.id,
