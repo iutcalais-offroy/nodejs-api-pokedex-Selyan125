@@ -31,7 +31,7 @@ async function signIn() {
             throw new Error(data.message || 'Sign in failed');
         }
 
-        log(`✅ Signed in successfully! Token received.`, 'received');
+        log(`✅ Signed in successfully! Token received. ${data.token}`, 'received');
 
         // Set token and connect
         document.getElementById('token').value = data.token;
