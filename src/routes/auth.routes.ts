@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 const router = Router();
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-router.post("/api/auth/sign-up", async (req, res) => {
+router.post("/sign-up", async (req, res) => {
     try {
         const { email, username, password } = req.body ?? {};
 
@@ -51,7 +51,7 @@ router.post("/api/auth/sign-up", async (req, res) => {
     }
 });
 
-router.post("/api/auth/sign-in", async (req, res) => {
+router.post("/sign-in", async (req, res) => {
     try {
         const { email, password } = req.body ?? {};
 
