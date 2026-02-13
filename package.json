@@ -17,7 +17,12 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:seed": "npm run db:generate && tsx prisma/seed.ts",
-    "db:reset": "npm run db:generate && prisma migrate reset --force && npm run db:seed"
+    "db:reset": "npm run db:generate && prisma migrate reset --force && npm run db:seed",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.1.0",
@@ -36,6 +41,9 @@
     "uuid": "13.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
+    "@eslint/js": "^9.39.2",
     "@types/bcryptjs": "2.4.6",
     "@types/cors": "2.8.17",
     "@types/express": "4.17.21",
@@ -47,8 +55,14 @@
     "@types/uuid": "10.0.0",
     "@vitest/coverage-v8": "4.0.15",
     "@vitest/ui": "4.0.15",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1",
     "tsx": "4.7.0",
     "typescript": "5.4.5",
+    "typescript-eslint": "^8.55.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "4.0.15",
     "vitest-mock-extended": "3.1.0"
