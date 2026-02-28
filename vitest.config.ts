@@ -10,6 +10,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    include: ['src/**/*.test.ts', 'tests/**/*.test.ts'],
+    exclude: ['node_modules/**', 'dist/**'],
     setupFiles: ['./tests/vitest.setup.ts'],
     coverage: {
       provider: 'v8',
