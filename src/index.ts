@@ -11,6 +11,10 @@ type SocketUser = {
     userId: number;
     email: string;
 };
+import swaggerUi from "swagger-ui-express";
+import authRoutes from "./routes/auth.routes";
+import decksRoutes from "./routes/decks.routes";
+import { openApiDocument } from "./docs";
 // Create Express app
 export const app = express();
 
@@ -31,6 +35,21 @@ app.use(express.static('public'));
 app.use("/api/auth", authRoutes);
 
 app.use("/api", decksRoutes);
+
+// Swagger/OpenAPI
+app.get("/api-docs.json", (_req, res) => {
+    res.json(openApiDocument);
+});
+
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(openApiDocument, {
+        swaggerOptions: {
+            persistAuthorization: true,
+        },
+    }),
+);
 
 // Health check endpoint
 app.get("/api/health", (_req, res) => {
