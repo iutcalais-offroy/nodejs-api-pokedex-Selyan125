@@ -12,12 +12,9 @@ type SocketUser = {
     email: string;
 };
 import swaggerUi from "swagger-ui-express";
-import authRoutes from "./routes/auth.routes";
-import decksRoutes from "./routes/decks.routes";
 import { openApiDocument } from "./docs";
 // Create Express app
 export const app = express()
-const PORT = process.env.PORT || 3000
 
 // Middlewares
 app.use(

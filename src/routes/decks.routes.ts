@@ -31,7 +31,8 @@ router.get("/cards", getCardsHandler);
 
 router.post("/decks", authenticate, async (req: Request, res: Response) => {
     try {
-        const { name, cards } = req.body ?? {};
+        const body = Object(req.body) as { name?: unknown; cards?: unknown };
+        const { name, cards } = body;
         const userId = req.user!.userId;
 
         if (!name || typeof name !== "string" || name.trim() === "") {
@@ -145,7 +146,8 @@ router.patch("/decks/:id", authenticate, async (req: Request, res: Response) => 
     try {
         const userId = req.user!.userId;
         const deckId = parseInt(req.params.id, 10);
-        const { name, cards } = req.body ?? {};
+        const body = Object(req.body) as { name?: unknown; cards?: unknown };
+        const { name, cards } = body;
 
         if (isNaN(deckId)) {
             res.status(404).json({ error: "Deck not found" });

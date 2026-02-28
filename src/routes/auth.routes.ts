@@ -8,7 +8,12 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 router.post('/sign-up', async (req, res) => {
   try {
-    const { email, username, password } = req.body ?? {}
+    const body = Object(req.body) as {
+      email?: unknown
+      username?: unknown
+      password?: unknown
+    }
+    const { email, username, password } = body
 
     if (
       !isNonEmptyString(email) ||
@@ -60,7 +65,8 @@ router.post('/sign-up', async (req, res) => {
 
 router.post('/sign-in', async (req, res) => {
   try {
-    const { email, password } = req.body ?? {}
+    const body = Object(req.body) as { email?: unknown; password?: unknown }
+    const { email, password } = body
 
     if (!isNonEmptyString(email) || !isNonEmptyString(password)) {
       res.status(400).json({ error: 'Missing or invalid data' })
