@@ -1,0 +1,96 @@
+paths:
+  /api/auth/sign-up:
+    post:
+      tags:
+        - Auth
+      summary: Créer un compte utilisateur
+      description: Crée un utilisateur, hash le mot de passe, puis retourne un JWT.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequestSignUp'
+            example:
+              email: trainer@pokedex.com
+              username: blue
+              password: superSecret123
+      responses:
+        '201':
+          description: Utilisateur créé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Données invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Missing or invalid data
+        '409':
+          description: Email ou username déjà utilisé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                emailInUse:
+                  value:
+                    error: Email already in use
+                usernameInUse:
+                  value:
+                    error: Username already in use
+        '500':
+          description: Erreur interne
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/auth/sign-in:
+    post:
+      tags:
+        - Auth
+      summary: Se connecter
+      description: Authentifie un utilisateur via email/mot de passe et retourne un JWT.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequestSignIn'
+            example:
+              email: trainer@pokedex.com
+              password: superSecret123
+      responses:
+        '200':
+          description: Authentification réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Données invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Missing or invalid data
+        '401':
+          description: Identifiants invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Invalid credentials
+        '500':
+          description: Erreur interne
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

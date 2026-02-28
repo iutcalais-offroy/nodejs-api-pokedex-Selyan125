@@ -1,0 +1,29 @@
+paths:
+  /api/cards:
+    get:
+      tags:
+        - Card
+      summary: Récupérer toutes les cartes
+      description: Retourne la liste de toutes les cartes triées par numéro Pokédex.
+      responses:
+        '200':
+          description: Liste des cartes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+              example:
+                - id: 1
+                  name: Bulbasaur
+                  pokedexNumber: 1
+                - id: 25
+                  name: Pikachu
+                  pokedexNumber: 25
+        '500':
+          description: Erreur interne
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
