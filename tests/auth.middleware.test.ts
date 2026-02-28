@@ -4,6 +4,14 @@ import { describe, expect, it, vi } from 'vitest'
 import { authenticate } from '../src/middleware/auth.middleware'
 import { env } from '../src/env'
 
+declare global {
+  namespace Express {
+    interface Request {
+      user?: { userId: number; email: string }
+    }
+  }
+}
+
 describe('authenticate middleware', () => {
   function createRes() {
     const res: Partial<Response> = {}
