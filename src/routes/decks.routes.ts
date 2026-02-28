@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { prisma } from "../database";
 import { authenticate } from "../middleware/auth.middleware";
 
-const router = Router();
+const router = Router()
 
 /**
  * Récupère la liste complète des cartes triées par numéro (Pokédex)
@@ -268,4 +268,4 @@ router.delete("/decks/:id", authenticate, async (req: Request, res: Response) =>
     }
 });
 
-export default router;
+export default router

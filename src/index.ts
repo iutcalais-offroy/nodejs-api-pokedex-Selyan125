@@ -16,25 +16,26 @@ import authRoutes from "./routes/auth.routes";
 import decksRoutes from "./routes/decks.routes";
 import { openApiDocument } from "./docs";
 // Create Express app
-export const app = express();
+export const app = express()
+const PORT = process.env.PORT || 3000
 
 // Middlewares
 app.use(
-    cors({
-        origin: true,  // Autorise toutes les origines
-        credentials: true,
-    }),
-);
+  cors({
+    origin: true, // Autorise toutes les origines
+    credentials: true,
+  }),
+)
 
-app.use(express.json());
+app.use(express.json())
 
 // Serve static files (Socket.io test client)
-app.use(express.static('public'));
+app.use(express.static('public'))
 
 // Auth routes
-app.use("/api/auth", authRoutes);
+app.use('/api/auth', authRoutes)
 
-app.use("/api", decksRoutes);
+app.use('/api', decksRoutes)
 
 // Swagger/OpenAPI
 app.get("/api-docs.json", (_req, res) => {
@@ -52,11 +53,9 @@ app.use(
 );
 
 // Health check endpoint
-app.get("/api/health", (_req, res) => {
-    res.json({status: "ok", message: "TCG Backend Server is running"});
-});
-
-
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok', message: 'TCG Backend Server is running' })
+})
 
 // Start server only if this file is run directly (not imported for tests)
 if (require.main === module) {
